@@ -13,11 +13,16 @@ import {
   Pressable,
   Alert,
   ToastAndroid,
+  Modal,
 } from 'react-native';
 
 const App = () => {
   const [name, SetName] = useState('');
   const [submitted, SetSubmitted] = useState(false);
+  const [showWarning, SetShowWarning] = useState(false)
+
+
+
   const onPressHandler = () => {
     if (name.length > 3) {
       SetSubmitted(!submitted);
@@ -27,16 +32,29 @@ const App = () => {
       //   { text: 'Cancel' },
       // ]);
 
-      ToastAndroid.showWithGravity(
-        'Tên bạn nhập phải có tối thiểu 3 ký tự',
-        ToastAndroid.TOP,
-        ToastAndroid.CENTER,
-      );
+      // ToastAndroid.showWithGravity(
+      //   'Tên bạn nhập phải có tối thiểu 3 ký tự',
+      //   ToastAndroid.TOP,
+      //   ToastAndroid.CENTER,
+      // );
+      SetShowWarning(true)
     }
   };
 
   return (
     <View style={styles.body}>
+      <Modal
+        transparent
+        visible={showWarning}
+        onRequestClose={() => SetShowWarning(false)}>
+        <View style={styles.center_view}>
+          <View style={styles.warning_modal}>
+            <Text style={styles.text}>Tên bạn nhập phải có tối thiểu 3 ký tự</Text>
+          </View>
+        </View>
+
+
+      </Modal>
       <Text style={styles.text}>Vui lòng nập tên của bạn</Text>
       <TextInput
         style={styles.input}
@@ -91,6 +109,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
   },
+  warning_modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 100,
+    width: 300,
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderRadius: 30
+  },
+  center_view: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#00000099'
+  }
 });
 
 export default App;
