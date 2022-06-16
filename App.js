@@ -3,17 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
-  FlatList,
-  RefreshControl,
-  SectionList,
   TextInput,
-  Button,
-  NativeEventEmitter,
   Pressable,
-  Alert,
-  ToastAndroid,
   Modal,
+  Image,
+  ImageBackground
 } from 'react-native';
 
 const App = () => {
@@ -42,7 +36,9 @@ const App = () => {
   };
 
   return (
-    <View style={styles.body}>
+    <ImageBackground
+      source={require('./assets/background.jpg')}
+      style={styles.body}>
       <Modal
         transparent
         visible={showWarning}
@@ -62,25 +58,33 @@ const App = () => {
         placeholder="Vui lập nhập tên của bạn"
         placeholderTextColor={'#555'}
         onChangeText={value => SetName(value)}
-        keyboardType="default"
+        keyboardType='ascii-capable'
         secureTextEntry></TextInput>
       {/* <Button title={submitted ? 'Clear' : 'Submit'}
         onPress={onPressHandler}></Button> */}
       <Pressable onPress={onPressHandler} style={styles.button}>
         <Text style={styles.text}>{submitted ? 'Clear' : 'Submit'}</Text>
       </Pressable>
-      {submitted ? (
-        <Text style={styles.text}>Tên bạn đăng ký là {name}</Text>
-      ) : null}
-    </View>
+      {
+        submitted ?
+          <View style={styles.body}>
+            <Text style={styles.text}>Tên bạn đăng ký là {name}</Text>
+            <Image
+              style={styles.image}
+              source={require('./assets/done.png')}></Image>
+          </View>
+          :
+          <Image
+            style={styles.image}
+            source={require('./assets/cross.png')}></Image>
+      }
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   body: {
-    backgroundColor: '#ffffff',
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
@@ -123,6 +127,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#00000099'
+  },
+  image: {
+    height: 100,
+    width: 100,
+    margin: 10
   }
 });
 
