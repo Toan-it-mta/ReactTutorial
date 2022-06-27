@@ -9,6 +9,7 @@ import {
   Image,
   ImageBackground
 } from 'react-native';
+import CustomButton from './CustomButton';
 
 const App = () => {
   const [name, SetName] = useState('');
@@ -58,13 +59,11 @@ const App = () => {
         placeholder="Vui lập nhập tên của bạn"
         placeholderTextColor={'#555'}
         onChangeText={value => SetName(value)}
-        keyboardType='ascii-capable'
-        secureTextEntry></TextInput>
-      {/* <Button title={submitted ? 'Clear' : 'Submit'}
-        onPress={onPressHandler}></Button> */}
-      <Pressable onPress={onPressHandler} style={styles.button}>
-        <Text style={styles.text}>{submitted ? 'Clear' : 'Submit'}</Text>
-      </Pressable>
+        keyboardType="default"></TextInput>
+      <CustomButton
+        onPressFunction={onPressHandler}
+        title={submitted ? 'Clear' : 'Submit'}
+      ></CustomButton>
       {
         submitted ?
           <View style={styles.body}>
