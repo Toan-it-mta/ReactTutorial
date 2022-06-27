@@ -7,132 +7,94 @@ import {
   Pressable,
   Modal,
   Image,
-  ImageBackground
+  ImageBackground,
+  PixelRatio
 } from 'react-native';
 
+const size = 32;
+const back_icon = {
+  url: require('./assets/icon/icons8-back-64.png'),
+  with: size,
+  height: size
+}
+
+
 const App = () => {
-  const [name, SetName] = useState('');
-  const [submitted, SetSubmitted] = useState(false);
-  const [showWarning, SetShowWarning] = useState(false)
-
-
-
-  const onPressHandler = () => {
-    if (name.length > 3) {
-      SetSubmitted(!submitted);
-    } else {
-      // Alert.alert('Warning', 'Tên nhập phải nhiều hơn 3 ksy tự', [
-      //   { text: 'OK', onPress: () => console.warn('Warring') },
-      //   { text: 'Cancel' },
-      // ]);
-
-      // ToastAndroid.showWithGravity(
-      //   'Tên bạn nhập phải có tối thiểu 3 ký tự',
-      //   ToastAndroid.TOP,
-      //   ToastAndroid.CENTER,
-      // );
-      SetShowWarning(true)
-    }
-  };
-
   return (
-    <ImageBackground
-      source={require('./assets/background.jpg')}
-      style={styles.body}>
-      <Modal
-        transparent
-        visible={showWarning}
-        onRequestClose={() => SetShowWarning(false)}>
-        <View style={styles.center_view}>
-          <View style={styles.warning_modal}>
-            <Text style={styles.text}>Tên bạn nhập phải có tối thiểu 3 ký tự</Text>
-          </View>
+    <View style={styles.screen}>
+      <View style={styles.headers}>
+        <View style={styles.box}>
+          <Pressable>
+            <Image source={require('./assets/icon/left-arrow.png')} resizeMode='stretch' style={styles.icon} />
+          </Pressable>
+        </View>
+        <View style={styles.box}>
+          <Text style={{ paddingLeft: 40, fontSize: 30, color: 'white' }}>Summer Playlist</Text>
+        </View>
+        <View style={styles.box}>
+          <Text style={{ paddingLeft: 40, fontSize: 15 }}>15 songs</Text>
         </View>
 
 
-      </Modal>
-      <Text style={styles.text}>Vui lòng nập tên của bạn</Text>
-      <TextInput
-        style={styles.input}
-        multiline
-        placeholder="Vui lập nhập tên của bạn"
-        placeholderTextColor={'#555'}
-        onChangeText={value => SetName(value)}
-        keyboardType='ascii-capable'
-        secureTextEntry></TextInput>
-      {/* <Button title={submitted ? 'Clear' : 'Submit'}
-        onPress={onPressHandler}></Button> */}
-      <Pressable onPress={onPressHandler} style={styles.button}>
-        <Text style={styles.text}>{submitted ? 'Clear' : 'Submit'}</Text>
-      </Pressable>
-      {
-        submitted ?
-          <View style={styles.body}>
-            <Text style={styles.text}>Tên bạn đăng ký là {name}</Text>
-            <Image
-              style={styles.image}
-              source={require('./assets/done.png')}></Image>
-          </View>
-          :
-          <Image
-            style={styles.image}
-            source={require('./assets/cross.png')}></Image>
-      }
-    </ImageBackground>
-  );
-};
+      </View>
+      <View style={styles.body}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Image style={styles.image_song} source={require('./assets/images/1.jpg')}></Image>
+          <Text style={styles.text_song_name}> Song name</Text>
+          <Text style={styles.text_author_name}> author name</Text>
+        </View>
+      </View>
+      <View style={styles.footer}>
+        <Text style={styles.text}>Xin chaof cac ban</Text>
+      </View>
+
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
-  body: {
+  screen: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: '#241332'
+  },
+  headers: {
+    flex: 1,
+    backgroundColor: '#35264199',
+    borderBottomLeftRadius: 70,
+  },
+  body: {
+    flex: 3,
+    backgroundColor: '#241332'
+  },
+  footer: {
+    flex: 1,
+    backgroundColor: '#352641',
+    borderTopLeftRadius: 70,
+    borderTopRightRadius: 70,
   },
   text: {
-    color: '#000000',
-    fontSize: 19,
+    color: '#ffffff',
+    fontSize: 30
   },
-  item: {
-    backgroundColor: '#546318',
-    justifyContent: 'center',
-    alignItems: 'center',
+  icon: {
+    width: 32,
+    height: 32
   },
-  input: {
-    width: 300,
-    borderColor: '#555',
-    borderWidth: 1,
-    color: '#000000',
-    borderRadius: 5,
-    fontSize: 15,
-    margin: 12,
+  box: {
+    margin: 5,
+    paddingLeft: 10
   },
-  button: {
-    backgroundColor: '#00ff00',
-    height: 60,
-    width: 150,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
+  image_song: {
+    margin: 40,
+    with: 250,
+    height: 250,
   },
-  warning_modal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 100,
-    width: 300,
-    backgroundColor: '#ffffff',
-    borderWidth: 1,
-    borderRadius: 30
+  text_song_name: {
+    fontSize: 25
   },
-  center_view: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#00000099'
-  },
-  image: {
-    height: 100,
-    width: 100,
-    margin: 10
+  text_author_name: {
+    margin: 5,
   }
-});
+})
 
 export default App;
